@@ -20,7 +20,7 @@ class Maze {
 
         System.out.print("\n\t");
         for (int i = 0; i < 155; i++) {
-            System.out.print("-");
+            System.out.print("_");
         }
 
         System.out.print("\n\n");
