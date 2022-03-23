@@ -1,9 +1,54 @@
+// Maze Project
+// Mark Bucaro
+
 import java.util.Stack;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 
 class Maze {
+
+    public static void Echo(char[] maze) {
+        // echo the original maze
+        int count = 0;
+
+        // printing collumns
+        System.out.print("\t");
+        for (int i = 1; i < 21; i++){
+            System.out.print(i + "\t");
+        }
+
+        System.out.print("\n\t");
+        for (int i = 0; i < 155; i++) {
+            System.out.print("-");
+        }
+
+        System.out.print("\n\n");
+
+        // prints the maze and rows
+        int row = 1;
+
+        for (char val:maze) {
+            if (count == 0) {
+                System.out.print(row);
+                if (row < 10) {
+                    System.out.print("  |");
+                }
+                else {
+                    System.out.print(" |");
+                }
+                
+                System.out.print("\t");
+            }
+            System.out.print(val + "\t");
+            count++;
+            if (count == 20) {
+                row++;
+                System.out.print("\n   |\n");
+                count = 0;
+            }
+        }
+    }
 
     public static void main(String args[]) {
         // reading file
@@ -50,15 +95,6 @@ class Maze {
         //     System.out.println(mystack.pop());
         // }
 
-        //debug
-        // System.out.println(lineByLineArray[0]);
-        // System.out.println(lineByLineArray[1]);
-        //debug
-
-
-        for (int i = 0; i < 400; i++) {
-            System.out.print(charByCharArray[i]);
-            // System.out.print("\n");
-        }
+        Echo(charByCharArray);
     }
 }
