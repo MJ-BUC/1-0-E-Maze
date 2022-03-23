@@ -7,6 +7,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 class Maze {
+    // ### global variables ###
+    public static int startVal = 0;
+    public static boolean win = false;
+    // ### global variables ###
 
     public static void Echo(char[] maze) {
         // echo the original maze
@@ -51,13 +55,13 @@ class Maze {
     }
 
     public static char[] StartingPoint(char[] maze, int row, int collumn) {
-        int start = 0;
-        start = collumn - 1;
+        // int startVal = 0;
+        startVal = collumn - 1;
         for (int i = 0; i < row - 1; i++) {
-            start += 20;
+            startVal += 20;
         }
 
-        maze[start] = 'S';
+        maze[startVal] = 'S';
         
         return maze;
     }
@@ -94,20 +98,11 @@ class Maze {
         }
 
 
-        // using a stack in java
-        Stack mystack = new Stack<>();
-        mystack.push(0);
-        mystack.push(1);
-        mystack.push(2);
-        mystack.push(3);
-        mystack.push(4);
-        mystack.push(5);
 
-        // for (int i = 0; i < 6; i ++) {
-        //     System.out.println(mystack.pop());
-        // }
-
+        // printing out the maze
         Echo(charByCharArray);
+
+
 
         // User enters the rows and collumns
         Scanner rowCollumnSelect = new Scanner(System.in);
@@ -122,6 +117,41 @@ class Maze {
         // using the rows and collumns to create a starting place in the maze
         StartingPoint(charByCharArray, row, collumn);
 
+        // printing out the maze
         Echo(charByCharArray);
+
+
+
+        // search algorithm for finding the exit
+        // System.out.println(startVal);
+        Stack<Character> mystack = new Stack<Character>();
+        int mazeVal = startVal;
+        
+        // move up
+        if (!(mazeVal < 20)) {
+            if (charByCharArray[mazeVal-20] == '0' || charByCharArray[mazeVal-20] == 'E') {
+                mystack.push(charByCharArray[mazeVal-20]);
+            }
+        }
+        // move down
+        if (!(mazeVal > 379)) {
+            if (charByCharArray[mazeVal+20] == '0' || charByCharArray[mazeVal+20] == 'E') {
+                mystack.push(charByCharArray[mazeVal+20]);
+            }
+        }
+        // move left
+
+        //move right
+
+
+        
+        // ### debug for stack ###
+        int stackSize = mystack.size();
+        for (int i = 0; i < stackSize; i++) {
+            System.out.println(mystack.pop());
+        }
+        // System.out.println(mystack.pop());
+        // ### debug for stack ###
+        
     }
 }
