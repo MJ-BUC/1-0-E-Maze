@@ -50,6 +50,18 @@ class Maze {
         }
     }
 
+    public static char[] StartingPoint(char[] maze, int row, int collumn) {
+        int start = 0;
+        start = collumn - 1;
+        for (int i = 0; i < row - 1; i++) {
+            start += 20;
+        }
+
+        maze[start] = 'S';
+        
+        return maze;
+    }
+
     public static void main(String args[]) {
         // reading file
         String[] lineByLineArray = new String[20];
@@ -94,6 +106,21 @@ class Maze {
         // for (int i = 0; i < 6; i ++) {
         //     System.out.println(mystack.pop());
         // }
+
+        Echo(charByCharArray);
+
+        // User enters the rows and collumns
+        Scanner rowCollumnSelect = new Scanner(System.in);
+        
+        System.out.println("\n\nSelect a row and collum to start at in the maze.");
+        System.out.println("Enter a row: ");
+        int row = rowCollumnSelect.nextInt();
+        System.out.println("Enter a collumn: ");
+        int collumn = rowCollumnSelect.nextInt();
+        System.out.print("\n\n");
+
+        // using the rows and collumns to create a starting place in the maze
+        StartingPoint(charByCharArray, row, collumn);
 
         Echo(charByCharArray);
     }
