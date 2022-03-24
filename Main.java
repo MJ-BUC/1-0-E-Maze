@@ -125,7 +125,6 @@ class Maze {
 
 
         // search algorithm for finding the exit
-        // System.out.println(startVal);
         Stack<Character> mystack = new Stack<Character>();
         int mazeVal = startVal;
         
@@ -142,25 +141,23 @@ class Maze {
             }
         }
         // move left
-        // 0,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300,320,340,360,380
-        Set<Integer> leftSet = new HashSet<Integer>();
-        for (int i = 0; i < 380; i+=20) {
-            leftSet.add(i);
-        }
-
-        // ### set debug ###
-        // for (int i = 0; i < leftSet.size(); i++) {
-        //     System.out.println(leftSet.);
-        // }
-        // ### set debug ###
-
-        if (!(mazeVal == 0)) {
-            if (charByCharArray[mazeVal-20] == '0' || charByCharArray[mazeVal-20] == 'E') {
-                mystack.push(charByCharArray[mazeVal-20]);
+        if (!(mazeVal == 0 || mazeVal == 20 || mazeVal == 40 || mazeVal == 60 || mazeVal == 80
+        || mazeVal == 100 || mazeVal == 120 || mazeVal == 140 || mazeVal == 160 || mazeVal == 180
+        || mazeVal == 200 || mazeVal == 220 || mazeVal == 240 || mazeVal == 260 || mazeVal == 280
+        || mazeVal == 300 || mazeVal == 320 || mazeVal == 340 || mazeVal == 360 || mazeVal == 380)) {
+            if (charByCharArray[mazeVal-1] == '0' || charByCharArray[mazeVal-1] == 'E') {
+                mystack.push(charByCharArray[mazeVal-1]);
             }
         }
         //move right
-
+        if (!(mazeVal == 19 || mazeVal == 39 || mazeVal == 59 || mazeVal == 79 || mazeVal == 99
+        || mazeVal == 119 || mazeVal == 139 || mazeVal == 159 || mazeVal == 179 || mazeVal == 199
+        || mazeVal == 219 || mazeVal == 239 || mazeVal == 259 || mazeVal == 279 || mazeVal == 299
+        || mazeVal == 319 || mazeVal == 339 || mazeVal == 359 || mazeVal == 379 || mazeVal == 399)) {
+            if (charByCharArray[mazeVal+1] == '0' || charByCharArray[mazeVal+1] == 'E') {
+                mystack.push(charByCharArray[mazeVal+1]);
+            }
+        }
 
         
         // ### debug for stack ###
