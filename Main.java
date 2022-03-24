@@ -161,11 +161,16 @@ class Maze {
 
         
         // ### debug for stack ###
-        int stackSize = mystack.size();
-        for (int i = 0; i < stackSize; i++) {
-            System.out.println(mystack.pop());
+        if (mystack.isEmpty()) {
+            System.out.println("Help, I Am Trapped!");
         }
-        // System.out.println(mystack.pop());
+        else {
+            System.out.println("Items In The Stack: ");
+            int stackSize = mystack.size();
+            for (int i = 0; i < stackSize; i++) {
+                System.out.println(mystack.pop());
+            }
+        }
         // ### debug for stack ###
         
     }
