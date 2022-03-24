@@ -2,7 +2,9 @@
 // Mark Bucaro
 
 import java.util.Stack;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -140,7 +142,23 @@ class Maze {
             }
         }
         // move left
+        // 0,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300,320,340,360,380
+        Set<Integer> leftSet = new HashSet<Integer>();
+        for (int i = 0; i < 380; i+=20) {
+            leftSet.add(i);
+        }
 
+        // ### set debug ###
+        // for (int i = 0; i < leftSet.size(); i++) {
+        //     System.out.println(leftSet.);
+        // }
+        // ### set debug ###
+
+        if (!(mazeVal == 0)) {
+            if (charByCharArray[mazeVal-20] == '0' || charByCharArray[mazeVal-20] == 'E') {
+                mystack.push(charByCharArray[mazeVal-20]);
+            }
+        }
         //move right
 
 
