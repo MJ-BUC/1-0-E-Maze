@@ -129,12 +129,14 @@ class Maze {
         // move up
         if (!(mazeVal < 20)) {
             if (charByCharArray[mazeVal-20] == '0' || charByCharArray[mazeVal-20] == 'E') {
+                mystack.push((char) ((mazeVal-20)+'0'));
                 mystack.push(charByCharArray[mazeVal-20]);
             }
         }
         // move down
         if (!(mazeVal > 379)) {
             if (charByCharArray[mazeVal+20] == '0' || charByCharArray[mazeVal+20] == 'E') {
+                mystack.push((char) ((mazeVal+20)+'0'));
                 mystack.push(charByCharArray[mazeVal+20]);
             }
         }
@@ -144,6 +146,7 @@ class Maze {
         || mazeVal == 200 || mazeVal == 220 || mazeVal == 240 || mazeVal == 260 || mazeVal == 280
         || mazeVal == 300 || mazeVal == 320 || mazeVal == 340 || mazeVal == 360 || mazeVal == 380)) {
             if (charByCharArray[mazeVal-1] == '0' || charByCharArray[mazeVal-1] == 'E') {
+                mystack.push((char) ((mazeVal-1)+'0'));
                 mystack.push(charByCharArray[mazeVal-1]);
             }
         }
@@ -153,6 +156,7 @@ class Maze {
         || mazeVal == 219 || mazeVal == 239 || mazeVal == 259 || mazeVal == 279 || mazeVal == 299
         || mazeVal == 319 || mazeVal == 339 || mazeVal == 359 || mazeVal == 379 || mazeVal == 399)) {
             if (charByCharArray[mazeVal+1] == '0' || charByCharArray[mazeVal+1] == 'E') {
+                mystack.push((char) ((mazeVal+1)+'0'));
                 mystack.push(charByCharArray[mazeVal+1]);
             }
         }
