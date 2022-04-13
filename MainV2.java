@@ -67,76 +67,82 @@ class Mazev2 {
     }
 
     // structure and algorithm for searching the maze for the exit with recurrsion
-    public static char[][] FindMazePath(char[][] charByCharArray, int currentCol, int currentRow) {
-
-        // moving left
-        if (currentCol != 0) {
-            if (charByCharArray[currentRow][currentCol-1] == 'E') {
-                if (!(charByCharArray[currentRow][currentCol] == 'S')) {
-                    charByCharArray[currentRow][currentCol] = '+';
+    public static boolean FindMazePath(char[][] charByCharArray, int currentCol, int currentRow) {
+        
+        if (charByCharArray[currentRow][currentCol-1] == 'E') {
+            return win = true;
+        }
+        
+        else {
+            // moving up
+            if (currentRow != 0) {
+                if (charByCharArray[currentRow-1][currentCol] == 'E') {
+                    if (!(charByCharArray[currentRow][currentCol] == 'S')) {
+                        charByCharArray[currentRow][currentCol] = '+';
+                    }
+                    return win = true;
                 }
-                return charByCharArray;
+                if (charByCharArray[currentRow-1][currentCol] == '0') {
+                    if (!(charByCharArray[currentRow][currentCol] == 'S')) {
+                        charByCharArray[currentRow][currentCol] = '+';
+                    }
+                    currentRow--;
+                    return FindMazePath(charByCharArray, currentCol, currentRow);
+                }
             }
-            if (charByCharArray[currentRow][currentCol-1] == '0') {
-                if (!(charByCharArray[currentRow][currentCol] == 'S')) {
-                    charByCharArray[currentRow][currentCol] = '+';
+
+            // moving left
+            if (currentCol != 0) {
+                if (charByCharArray[currentRow][currentCol-1] == 'E') {
+                    if (!(charByCharArray[currentRow][currentCol] == 'S')) {
+                        charByCharArray[currentRow][currentCol] = '+';
+                    }
+                    return win = true;
                 }
-                currentCol--;
-                FindMazePath(charByCharArray, currentCol, currentRow);
+                if (charByCharArray[currentRow][currentCol-1] == '0') {
+                    if (!(charByCharArray[currentRow][currentCol] == 'S')) {
+                        charByCharArray[currentRow][currentCol] = '+';
+                    }
+                    currentCol--;
+                    return FindMazePath(charByCharArray, currentCol, currentRow);
+                }
+            }
+
+            //moving right
+            if (currentCol != 19) {
+                if (charByCharArray[currentRow][currentCol+1] == 'E') {
+                    if (!(charByCharArray[currentRow][currentCol] == 'S')) {
+                        charByCharArray[currentRow][currentCol] = '+';
+                    }
+                    return win = true;
+                }
+                if (charByCharArray[currentRow][currentCol+1] == '0') {
+                    if (!(charByCharArray[currentRow][currentCol] == 'S')) {
+                        charByCharArray[currentRow][currentCol] = '+';
+                    }
+                    currentCol++;
+                    return FindMazePath(charByCharArray, currentCol, currentRow);
+                }
+            }
+
+            // moving down
+            if (currentRow != 19) {
+                if (charByCharArray[currentRow+1][currentCol] == 'E') {
+                    if (!(charByCharArray[currentRow][currentCol] == 'S')) {
+                        charByCharArray[currentRow][currentCol] = '+';
+                    }
+                    return win = true;
+                }
+                if (charByCharArray[currentRow+1][currentCol] == '0') {
+                    if (!(charByCharArray[currentRow][currentCol] == 'S')) {
+                        charByCharArray[currentRow][currentCol] = '+';
+                    }
+                    currentRow++;
+                    return FindMazePath(charByCharArray, currentCol, currentRow);
+                }
             }
         }
-
-        //moving right
-        if (currentCol != 19) {
-            if (charByCharArray[currentRow][currentCol+1] == 'E') {
-                if (!(charByCharArray[currentRow][currentCol] == 'S')) {
-                    charByCharArray[currentRow][currentCol] = '+';
-                }
-                return charByCharArray;
-            }
-            if (charByCharArray[currentRow][currentCol+1] == '0') {
-                if (!(charByCharArray[currentRow][currentCol] == 'S')) {
-                    charByCharArray[currentRow][currentCol] = '+';
-                }
-                currentCol++;
-                FindMazePath(charByCharArray, currentCol, currentRow);
-            }
-        }
-
-        // moving up
-        if (currentRow != 0) {
-            if (charByCharArray[currentRow-1][currentCol] == 'E') {
-                if (!(charByCharArray[currentRow][currentCol] == 'S')) {
-                    charByCharArray[currentRow][currentCol] = '+';
-                }
-                return charByCharArray;
-            }
-            if (charByCharArray[currentRow-1][currentCol] == '0') {
-                if (!(charByCharArray[currentRow][currentCol] == 'S')) {
-                    charByCharArray[currentRow][currentCol] = '+';
-                }
-                currentRow--;
-                FindMazePath(charByCharArray, currentCol, currentRow);
-            }
-        }
-
-        // moving down
-        if (currentRow != 19) {
-            if (charByCharArray[currentRow+1][currentCol] == 'E') {
-                if (!(charByCharArray[currentRow][currentCol] == 'S')) {
-                    charByCharArray[currentRow][currentCol] = '+';
-                }
-                return charByCharArray;
-            }
-            if (charByCharArray[currentRow+1][currentCol] == '0') {
-                if (!(charByCharArray[currentRow][currentCol] == 'S')) {
-                    charByCharArray[currentRow][currentCol] = '+';
-                }
-                currentRow++;
-                FindMazePath(charByCharArray, currentCol, currentRow);
-            }
-        }
-        return charByCharArray;
+        return win = false;
     }
 
 
@@ -193,7 +199,7 @@ class Mazev2 {
         int currentRow = startRow;
 
         // recursively solve the maze and save to the 2d array
-        charByCharArray = FindMazePath(charByCharArray, currentCol, currentRow);
+        FindMazePath(charByCharArray, currentCol, currentRow);
 
 
         Stack<Character> mystack = new Stack<Character>();
@@ -221,7 +227,7 @@ class Mazev2 {
         }
 
 
-        if (mystack.isEmpty()) {
+        if (mystack.isEmpty() && win == false) {
             System.out.println("\n\nHelp, I Am Trapped!\n");
             Echo(charByCharArray);
         }
@@ -230,7 +236,8 @@ class Mazev2 {
             System.out.println("\n\nResulting Solved Maze:\n");
             Echo(charByCharArray);
         }
-
+        
+        System.out.println(win);
 
         // structure and algorithm for searching the maze for the exit
         // while (win == false) {
