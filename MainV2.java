@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.Stack;
 
 class Mazev2 {
 
@@ -66,9 +67,76 @@ class Mazev2 {
     }
 
     // structure and algorithm for searching the maze for the exit with recurrsion
-    public static char[][] FindMazePath() {
-        return null;
+    public static char[][] FindMazePath(char[][] charByCharArray, int currentCol, int currentRow) {
 
+        // moving left
+        if (currentCol != 0) {
+            if (charByCharArray[currentRow][currentCol-1] == 'E') {
+                if (!(charByCharArray[currentRow][currentCol] == 'S')) {
+                    charByCharArray[currentRow][currentCol] = '+';
+                }
+                return charByCharArray;
+            }
+            if (charByCharArray[currentRow][currentCol-1] == '0') {
+                if (!(charByCharArray[currentRow][currentCol] == 'S')) {
+                    charByCharArray[currentRow][currentCol] = '+';
+                }
+                currentCol--;
+                FindMazePath(charByCharArray, currentCol, currentRow);
+            }
+        }
+
+        //moving right
+        if (currentCol != 19) {
+            if (charByCharArray[currentRow][currentCol+1] == 'E') {
+                if (!(charByCharArray[currentRow][currentCol] == 'S')) {
+                    charByCharArray[currentRow][currentCol] = '+';
+                }
+                return charByCharArray;
+            }
+            if (charByCharArray[currentRow][currentCol+1] == '0') {
+                if (!(charByCharArray[currentRow][currentCol] == 'S')) {
+                    charByCharArray[currentRow][currentCol] = '+';
+                }
+                currentCol++;
+                FindMazePath(charByCharArray, currentCol, currentRow);
+            }
+        }
+
+        // moving up
+        if (currentRow != 0) {
+            if (charByCharArray[currentRow-1][currentCol] == 'E') {
+                if (!(charByCharArray[currentRow][currentCol] == 'S')) {
+                    charByCharArray[currentRow][currentCol] = '+';
+                }
+                return charByCharArray;
+            }
+            if (charByCharArray[currentRow-1][currentCol] == '0') {
+                if (!(charByCharArray[currentRow][currentCol] == 'S')) {
+                    charByCharArray[currentRow][currentCol] = '+';
+                }
+                currentRow--;
+                FindMazePath(charByCharArray, currentCol, currentRow);
+            }
+        }
+
+        // moving down
+        if (currentRow != 19) {
+            if (charByCharArray[currentRow+1][currentCol] == 'E') {
+                if (!(charByCharArray[currentRow][currentCol] == 'S')) {
+                    charByCharArray[currentRow][currentCol] = '+';
+                }
+                return charByCharArray;
+            }
+            if (charByCharArray[currentRow+1][currentCol] == '0') {
+                if (!(charByCharArray[currentRow][currentCol] == 'S')) {
+                    charByCharArray[currentRow][currentCol] = '+';
+                }
+                currentRow++;
+                FindMazePath(charByCharArray, currentCol, currentRow);
+            }
+        }
+        return charByCharArray;
     }
 
 
@@ -118,29 +186,67 @@ class Mazev2 {
         // using the rows and collumns to create a starting place in the maze
         charByCharArray = StartingPoint(charByCharArray, row, column);
 
-        // printing out the maze
+        // printing out the maze showing the START and EXIT
         Echo(charByCharArray);
 
         int currentCol = startCol;
         int currentRow = startRow;
-        char currentElement;
+
+        // recursively solve the maze and save to the 2d array
+        charByCharArray = FindMazePath(charByCharArray, currentCol, currentRow);
+
+
+        Stack<Character> mystack = new Stack<Character>();
+        
+        // push all sides to a stack to find the current value's surrounding values
+        if (currentCol != 0) {
+            if (charByCharArray[currentRow][currentCol-1] == '0' || charByCharArray[currentRow][currentCol-1] == 'E') {
+                mystack.push(charByCharArray[currentRow][currentCol-1]);
+            }
+        }
+        if (currentCol != 19) {
+            if (charByCharArray[currentRow][currentCol+1] == '0' || charByCharArray[currentRow][currentCol+1] == 'E') {
+                mystack.push(charByCharArray[currentRow][currentCol+1]);
+            }
+        }
+        if (currentRow != 0) {
+            if (charByCharArray[currentRow-1][currentCol] == '0' || charByCharArray[currentRow-1][currentCol] == 'E') {
+                mystack.push(charByCharArray[currentRow-1][currentCol]);
+            }
+        }
+        if (currentRow != 19) {
+            if (charByCharArray[currentRow+1][currentCol] == '0' || charByCharArray[currentRow+1][currentCol] == 'E') {
+                mystack.push(charByCharArray[currentRow+1][currentCol]);
+            }
+        }
+
+
+        if (mystack.isEmpty()) {
+            System.out.println("\n\nHelp, I Am Trapped!\n");
+            Echo(charByCharArray);
+        }
+        else {
+            // printing the final result
+            System.out.println("\n\nResulting Solved Maze:\n");
+            Echo(charByCharArray);
+        }
 
 
         // structure and algorithm for searching the maze for the exit
-        while (win == false) {
-            if (currentCol != 0) {
-                System.out.println(charByCharArray[currentRow][currentCol-1]);
-            }
-            if (currentCol != 19) {
-                System.out.println(charByCharArray[currentRow][currentCol+1]);
-            }
-            if (currentRow != 0) {
-                System.out.println(charByCharArray[currentRow-1][currentCol]);
-            }
-            if (currentRow != 19) {
-                System.out.println(charByCharArray[currentRow+1][currentCol]);
-            }
-            win = true;
-        }
+        // while (win == false) {
+        //     if (currentCol != 0) {
+        //         System.out.println(charByCharArray[currentRow][currentCol-1]);
+        //     }
+        //     if (currentCol != 19) {
+        //         System.out.println(charByCharArray[currentRow][currentCol+1]);
+        //     }
+        //     if (currentRow != 0) {
+        //         System.out.println(charByCharArray[currentRow-1][currentCol]);
+        //     }
+        //     if (currentRow != 19) {
+        //         System.out.println(charByCharArray[currentRow+1][currentCol]);
+        //     }
+        //     win = true;
+        // }
     }
 }
