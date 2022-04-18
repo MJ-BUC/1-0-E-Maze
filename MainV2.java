@@ -274,7 +274,7 @@ class Mazev2 {
             currentRow = mazePosStack.pop();
             currentCol = mazePosStack.pop();
 
-            if (currentRow != startRow && currentCol != startCol) {
+            if (charByCharArray[currentRow][currentCol] != 'S') {
                 charByCharArray[currentRow][currentCol] = '+';
             }
         }
