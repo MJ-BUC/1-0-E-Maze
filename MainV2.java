@@ -166,8 +166,9 @@ class Mazev2 {
             if (mazePosStack.isEmpty() == false) {
                 currentRow = (int) mazePosStack.pop();
                 currentCol = (int) mazePosStack.pop();
-                System.out.println(currentRow);
-                System.out.println(currentCol);
+                // debugging
+                // System.out.println(currentRow);
+                // System.out.println(currentCol);
             }
             if (count == 200) {
                 return win = false;
@@ -277,7 +278,14 @@ class Mazev2 {
 
         }
 
-
+        // removing the unused 'V's from the maze and changing them back to '0'
+        for (int i = 0; i < 20; i++) {
+            for (int j = 0; j < 20; j++) {
+                if (charByCharArray[i][j] == 'V') {
+                    charByCharArray[i][j] = '0';
+                }
+            }
+        }
 
         if (win == false) {
             System.out.println("\n\nHelp, I Am Trapped!\n");
@@ -289,7 +297,8 @@ class Mazev2 {
             Echo(charByCharArray);
         }
         
-        System.out.println(win);
+        //debugging
+        // System.out.println(win);
 
         // System.out.println(mazePosStack.pop());
         // System.out.println(mazePosStack.pop());
