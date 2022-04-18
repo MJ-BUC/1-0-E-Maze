@@ -274,8 +274,9 @@ class Mazev2 {
             currentRow = mazePosStack.pop();
             currentCol = mazePosStack.pop();
 
-            charByCharArray[currentRow][currentCol] = '+';
-
+            if (currentRow != startRow && currentCol != startCol) {
+                charByCharArray[currentRow][currentCol] = '+';
+            }
         }
 
         // removing the unused 'V's from the maze and changing them back to '0'
