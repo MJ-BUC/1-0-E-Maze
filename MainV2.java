@@ -293,7 +293,7 @@ class Mazev2 {
         }
         else {
             // printing the final result
-            System.out.println("\n\nResulting Solved Maze:\n");
+            System.out.println("\n\nI Am Free!\n");
             Echo(charByCharArray);
         }
         
