@@ -57,7 +57,7 @@ class Mazev2 {
     }
 
     public static char[][] StartingPoint(char[][] maze, int row, int column) {
-        // int startVal = 0;
+        // finds the starting point entered in the 2d array and replaces the 0 with a S
         startCol = column - 1;
         startRow = row - 1;
 
@@ -68,13 +68,13 @@ class Mazev2 {
 
     // structure and algorithm for searching the maze for the exit with recurrsion
     public static boolean FindMazePath(char[][] charByCharArray, int currentCol, int currentRow, Stack mazePosStack, int count) {
-        
+        // base case for the recusrsive method
         if (charByCharArray[currentRow][currentCol] == 'E') {
             return win = true;
         }
         
         else {
-            // moving up
+            // moving up : checks position directly above
             if (currentRow != 0) {
                 if (charByCharArray[currentRow-1][currentCol] == 'E') {
                     if (!(charByCharArray[currentRow][currentCol] == 'S')) {
@@ -96,7 +96,7 @@ class Mazev2 {
                 }
             }
 
-            // moving left
+            // moving left : checks position directly left
             if (currentCol != 0) {
                 if (charByCharArray[currentRow][currentCol-1] == 'E') {
                     if (!(charByCharArray[currentRow][currentCol] == 'S')) {
@@ -118,7 +118,7 @@ class Mazev2 {
                 }
             }
 
-            //moving right
+            //moving right : checks position directly right
             if (currentCol != 19) {
                 if (charByCharArray[currentRow][currentCol+1] == 'E') {
                     if (!(charByCharArray[currentRow][currentCol] == 'S')) {
@@ -140,7 +140,7 @@ class Mazev2 {
                 }
             }
 
-            // moving down
+            // moving down : checks position directly below
             if (currentRow != 19) {
                 if (charByCharArray[currentRow+1][currentCol] == 'E') {
                     if (!(charByCharArray[currentRow][currentCol] == 'S')) {
@@ -166,11 +166,8 @@ class Mazev2 {
             if (mazePosStack.isEmpty() == false) {
                 currentRow = (int) mazePosStack.pop();
                 currentCol = (int) mazePosStack.pop();
-                // debugging
-                // System.out.println(currentRow);
-                // System.out.println(currentCol);
             }
-            if (count == 200) {
+            if (count == 400) {
                 return win = false;
             }
             count++;
@@ -183,13 +180,16 @@ class Mazev2 {
 
 
     public static void main(String args[]) {
+        // creating two arrays a line by line to store the file data and a char by char to store each char in a 2d array
         String[] lineByLineArray = new String[20];
         char[][] charByCharArray = new char[20][20];
 
         int index = 0;
 
+        // file with the respective path
         File mazeFile = new File("C:\\Users\\lunke\\OneDrive\\Documents\\Github\\10EMaze\\maze.txt");
 
+        // reading the file
         try {
             Scanner maze = new Scanner(mazeFile);
             while(maze.hasNext()) {
@@ -245,30 +245,6 @@ class Mazev2 {
         // recursively solve the maze and save to the 2d array
         FindMazePath(charByCharArray, currentCol, currentRow, mazePosStack, count);
 
-        // Stack<Character> mystack = new Stack<Character>();
-        
-        // push all sides to a stack to find the current value's surrounding values
-        // if (currentCol != 0) {
-        //     if (charByCharArray[currentRow][currentCol-1] == '0' || charByCharArray[currentRow][currentCol-1] == 'E') {
-        //         mystack.push(charByCharArray[currentRow][currentCol-1]);
-        //     }
-        // }
-        // if (currentCol != 19) {
-        //     if (charByCharArray[currentRow][currentCol+1] == '0' || charByCharArray[currentRow][currentCol+1] == 'E') {
-        //         mystack.push(charByCharArray[currentRow][currentCol+1]);
-        //     }
-        // }
-        // if (currentRow != 0) {
-        //     if (charByCharArray[currentRow-1][currentCol] == '0' || charByCharArray[currentRow-1][currentCol] == 'E') {
-        //         mystack.push(charByCharArray[currentRow-1][currentCol]);
-        //     }
-        // }
-        // if (currentRow != 19) {
-        //     if (charByCharArray[currentRow+1][currentCol] == '0' || charByCharArray[currentRow+1][currentCol] == 'E') {
-        //         mystack.push(charByCharArray[currentRow+1][currentCol]);
-        //     }
-        // }
-
         // marking the final path (if there is one) with '+'s
         while (mazePosStack.isEmpty() == false) {
             currentRow = mazePosStack.pop();
@@ -286,8 +262,10 @@ class Mazev2 {
                     charByCharArray[i][j] = '0';
                 }
             }
-        }
+        }  
 
+
+        // prints wheter the user is trapped or not and the final maze... with the path or without if trapped
         if (win == false) {
             System.out.println("\n\nHelp, I Am Trapped!\n");
             Echo(charByCharArray);
@@ -297,16 +275,5 @@ class Mazev2 {
             System.out.println("\n\nI Am Free!\n");
             Echo(charByCharArray);
         }
-        
-        //debugging
-        // System.out.println(win);
-
-        // System.out.println(mazePosStack.pop());
-        // System.out.println(mazePosStack.pop());
-        // System.out.println(mazePosStack.pop());
-        // System.out.println(mazePosStack.pop());
-        // for (Integer x:mazePosStack) {
-        //     System.out.println(x);
-        // }
     }
 }
